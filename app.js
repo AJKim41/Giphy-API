@@ -3,6 +3,7 @@ class giphyApp {
     this.search = "";
     this.animalTags = ["Dog", "Cat", "Rabbit"];
   }
+
   populateTags() {
     document.getElementById("tags-container").innerHTML = "";
     this.animalTags.map(tag => {
@@ -10,7 +11,7 @@ class giphyApp {
       let button = document.createElement("button");
       button.setAttribute("class", "gif");
       button.setAttribute("id", tag);
-      button.setAttribute("style", "margin: 10px;");
+      button.setAttribute("style", "margin: 10px; margin-left: 0px;");
       button.innerHTML = tag;
       button.addEventListener("click", this.animalTagClick);
       tagsContainer.append(button);
@@ -20,15 +21,23 @@ class giphyApp {
   displayImage(element) {
     let stillUrl = element.images.fixed_width_still.url;
     let loopingUrl = element.images.fixed_width.url;
+    let imageRating = element.rating;
     let resultContainer = document.getElementById("result-container");
     let image = document.createElement("img");
+    let rating = document.createElement("FIGCAPTION");
+    let imageContainer = document.createElement("div");
+    rating.textContent = imageRating;
+    rating.setAttribute("style", "text-align: center;");
+    imageContainer.setAttribute("class", "order-md-1");
     image.setAttribute("src", stillUrl);
     image.setAttribute("data-state", "still");
     image.setAttribute("data-animate", loopingUrl);
     image.setAttribute("data-still", stillUrl);
-    image.setAttribute("style", "width: 50%; padding: 10px; height: 250px;");
+    image.setAttribute("style", "padding-right: 10px; height: 250px;");
     image.addEventListener("click", this.animateGif);
-    resultContainer.append(image);
+    resultContainer.append(imageContainer);
+    imageContainer.append(image);
+    imageContainer.append(rating);
   }
 
   animalTagClick() {
@@ -41,7 +50,6 @@ class giphyApp {
     let dataState = event.currentTarget.dataset.state;
     let dataStill = event.currentTarget.dataset.still;
     let dataAnimate = event.currentTarget.dataset.animate;
-    console.log(dataState);
     if (dataState === "still") {
       this.setAttribute("src", dataAnimate);
       this.setAttribute("data-state", "animate");
