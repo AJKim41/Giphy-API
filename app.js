@@ -1,7 +1,7 @@
 class giphyApp {
   constructor() {
     this.search = "";
-    this.animalTags = ["Dog", "Cat", "Rabbit"];
+    this.animalTags = ["dog", "cat", "rabbit"];
   }
 
   populateTags() {
@@ -80,8 +80,16 @@ function initiateApp() {
   giphyApp.populateTags();
   document.addEventListener("submit", function(event) {
     event.preventDefault();
-    this.search = document.getElementById("search-input").value;
-    giphyApp.animalTags.push(this.search);
+    this.search = document
+      .getElementById("search-input")
+      .value.toLowerCase()
+      .trim();
+    if (
+      giphyApp.animalTags.includes(this.search) === false &&
+      this.search !== ""
+    ) {
+      giphyApp.animalTags.push(this.search);
+    }
     giphyApp.populateTags();
     giphyAW(this.search);
     document.getElementById("search-input").value = "";
