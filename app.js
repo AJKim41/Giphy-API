@@ -25,7 +25,7 @@ class giphyApp {
     let image = document.createElement("img");
     let rating = document.createElement("FIGCAPTION");
     let imageContainer = document.createElement("div");
-    rating.textContent = imageRating;
+    rating.textContent = `rating: ${imageRating}`;
     rating.setAttribute("style", "text-align: center;");
     imageContainer.setAttribute("class", "order-md-1");
     image.setAttribute("src", stillUrl);
@@ -67,7 +67,7 @@ class giphyApp {
 async function giphyAW(search) {
   document.getElementById("result-container").innerHTML = "";
   const response = await fetch(
-    `https://api.giphy.com/v1/gifs/search?q=${search}&api_key=AUKbW19nf9ikTy5BT1ZgIg4OXz1a3VAR&limit=5`
+    `https://api.giphy.com/v1/gifs/search?q=${search}&api_key=AUKbW19nf9ikTy5BT1ZgIg4OXz1a3VAR&limit=10`
   );
   const data = await response.json();
   const gifArray = data.data;
@@ -78,13 +78,13 @@ async function giphyAW(search) {
 
 function initiateApp() {
   giphyApp.populateTags();
-
   document.addEventListener("submit", function(event) {
     event.preventDefault();
     this.search = document.getElementById("search-input").value;
     giphyApp.animalTags.push(this.search);
     giphyApp.populateTags();
     giphyAW(this.search);
+    document.getElementById("search-input").value = "";
   });
 }
 document.addEventListener("DOMContentLoaded", function() {
