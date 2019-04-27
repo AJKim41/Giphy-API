@@ -9,7 +9,6 @@ class giphyApp {
     this.animalTags.map(tag => {
       let tagsContainer = document.getElementById("tags-container");
       let button = document.createElement("button");
-      button.setAttribute("class", "gif");
       button.setAttribute("id", tag);
       button.setAttribute("style", "margin: 10px; margin-left: 0px;");
       button.innerHTML = tag;
@@ -42,8 +41,13 @@ class giphyApp {
 
   animalTagClick() {
     event.preventDefault();
+    let removeActive = document.querySelectorAll("button");
+    for (let i = 0; i < removeActive.length; i++) {
+      removeActive[i].className = "";
+    }
     this.search = event.currentTarget.id;
     giphyAW(this.search);
+    this.setAttribute("class", "active");
   }
 
   animateGif() {
