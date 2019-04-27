@@ -55,7 +55,7 @@ class giphyApp {
 async function giphyAW(search) {
   document.getElementById("result-container").innerHTML = "";
   const response = await fetch(
-    `http://api.giphy.com/v1/gifs/search?q=${search}&api_key=AUKbW19nf9ikTy5BT1ZgIg4OXz1a3VAR&limit=5`
+    `https://api.giphy.com/v1/gifs/search?q=${search}&api_key=AUKbW19nf9ikTy5BT1ZgIg4OXz1a3VAR&limit=5`
   );
   const data = await response.json();
   const gifArray = data.data;
